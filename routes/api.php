@@ -21,4 +21,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get("partners/{id?}", [PartnerController::class, 'partners']);
 
+Route::post("partners", [PartnerController::class, 'add']);
+
 
