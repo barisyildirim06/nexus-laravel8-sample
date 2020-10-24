@@ -23,4 +23,6 @@ Route::get("partners/{id?}", [PartnerController::class, 'partners']);
 
 Route::post("partners", [PartnerController::class, 'add']);
 
+Route::patch("partners/{id}",[PartnerController::class, 'update']);
+
 
