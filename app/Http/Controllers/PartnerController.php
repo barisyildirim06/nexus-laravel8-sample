@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Partner;
+use Intervention\Image\Facades\Image;
+
 class PartnerController extends Controller
 {
     function partners(Request $request)
@@ -22,7 +24,9 @@ class PartnerController extends Controller
     {
         $partner = new Partner;
         $partner->name=$req->name;
-        $partner->id=$req->id;
+        $partner->photo=$req->file('photo')->store('uploads', 'public');
+        $photo = Image::make(public_path('storage/' . $partner->photo))->fit(100,100);
+        $photo->save();
         $result=$partner->save();
         if($result)
         {
@@ -36,8 +40,9 @@ class PartnerController extends Controller
     function update(Request $req,$id)
     {
         $partner = Partner::find($id);
-        $partner->name=$req->name;
-        $partner->id=$req->id;
+        $partner->photo=$req->file('photo')->store('uploads', 'public');
+        $photo = Image::make(public_path('storage/' . $partner->photo))->fit(100,100);
+        $photo->save();
         $result=$partner->save();
         if($result)
         {
