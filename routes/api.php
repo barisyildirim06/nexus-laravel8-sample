@@ -19,10 +19,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get("partners/{id?}", [PartnerController::class, 'partners']);
+Route::get("partners",[PartnerController::class, 'partners']);
+
+Route::get("partners/{id}", [PartnerController::class, 'partnersbyid']);
 
 Route::post("partners", [PartnerController::class, 'add']);
 
 Route::patch("partners/{id}",[PartnerController::class, 'update']);
+
+Route::delete("partners/{id}", [PartnerController::class, 'deletepartner']);
+
+
+
 
 

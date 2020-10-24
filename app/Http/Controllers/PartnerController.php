@@ -6,9 +6,17 @@ use Illuminate\Http\Request;
 use App\Models\Partner;
 class PartnerController extends Controller
 {
-    function partners($id=null)
+    function partners(Request $request)
     {
-        return $id?Partner::find($id):Partner::all();
+        $name = $request->input('name');
+        $per_page = $request->input('per_page');
+        $data = Partner::where("name","like",$name."%")->paginate($per_page);
+        return view('list',['partners'=>$data]);
+    }
+    function partnersbyid($id)
+    {
+        $data =Partner::find($id);
+        return view('single',["data"=>$data]);
     }
     function add(Request $req)
     {
@@ -38,6 +46,15 @@ class PartnerController extends Controller
         else
         {
             return ["Result"=>"Data couldn't updated to database"];
+        }
+    }
+    function deletepartner($id)
+    {
+        $partner = Partner::find($id);
+        $result= $partner->delete();
+        if($result)
+        {
+            return ["Result"=>"Partner is deleted from database"];
         }
     }
 }
