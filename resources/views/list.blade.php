@@ -5,9 +5,10 @@
     <table class="table">
         <thead>
             <tr>
-                <td scope="col-4-lg">ID</td>
-                <td scope="col-4-lg">Photo</td>
-                <td scope="col-4-lg">NAME</td>
+                <td scope="col-3-lg">ID</td>
+                <td scope="col-3-lg">Photo</td>
+                <td scope="col-3-lg">NAME</td>
+                <td scope="col-3-lg">OPERATION</td>
             </tr>
         </thead>
         <tbody>
@@ -16,6 +17,7 @@
                 <th scope="row"><a href="/api/partners/{{$partner['id']}}">{{$partner['id']}}</a></th>
                 <td><img src="{{ asset('storage/' . $partner['photo']) }}" alt="no photo"></td>
                 <td>{{$partner['name']}}</td>
+            <td><a href="{{"partners/".$partner['id']}}" >View</a></td>
             </tr>
             @endforeach
         </tbody>

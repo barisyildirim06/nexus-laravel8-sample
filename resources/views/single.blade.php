@@ -5,16 +5,20 @@
     <table class="table">
         <thead>
             <tr>
-                <td scope="col-4-lg">ID</td>
-                <td scope="col-4-lg">Photo</td>
-                <td scope="col-4-lg">NAME</td>
+                <td scope="col-3-lg">ID</td>
+                <td scope="col-3-lg">PHOTO</td>
+                <td scope="col-3-lg">NAME</td>
+                <td scope="col-3-lg">OPERATION</td>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <th scope="row"><a href="/api/partners/{{$data['id']}}">{{$data['id']}}</a></th>
+                <th scope="row">{{$data['id']}}</th>
                 <td><img src="{{ asset('storage/' . $data['photo']) }}" alt="no photo"></td>
                 <td>{{$data['name']}}</td>
+                <td><form action="" method="POST">
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-primary">Delete</button></form></td>
             </tr>
         </tbody>
     </table>

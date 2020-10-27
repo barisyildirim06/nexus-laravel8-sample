@@ -13,7 +13,12 @@ class PartnerController extends Controller
     {
         $name = $request->input('name');
         $per_page = $request->input('per_page');
-        $data = Partner::where("name","like",$name."%")->paginate($per_page);
+        if($per_page){
+            $data = Partner::where("name","like",$name."%")->paginate($per_page);
+        }else{
+            $data = Partner::where("name","like",$name."%")->get();   
+        }
+
         return view('list',['partners'=>$data]);
     }
     function partnersbyid($id)
@@ -24,7 +29,7 @@ class PartnerController extends Controller
     function add(Request $req)
     {
         $req->validate([
-            'name' => array('required','not_regex:/n([-]+)?e([-]+)?x([-]+)?u([-]+)?s/')
+            'name' => array('required','not_regex:/(N|n)([-]+)?(E|e)([-]+)?(X|x)([-]+)?(U|u)([-]+)?(S|s)/')
         ]);
         $partner = new Partner;
         $name=$req->name;
@@ -53,7 +58,7 @@ class PartnerController extends Controller
     }
     function update(Request $req,$id){
         $req->validate([
-            'name' => array('required','not_regex:/n([-]+)?e([-]+)?x([-]+)?u([-]+)?s/')
+            'name' => array('required','not_regex:/(N|n)([-]+)?(E|e)([-]+)?(X|x)([-]+)?(U|u)([-]+)?(S|s)/')
         ]);
         $partner = Partner::find($id);
         $name=$req->name;
