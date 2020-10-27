@@ -23,10 +23,17 @@ class PartnerController extends Controller
     function add(Request $req)
     {
         $partner = new Partner;
+        $name=$req->name;
         $partner->name=$req->name;
-        $partner->photo=$req->file('photo')->store('uploads', 'public');
-        $photo = Image::make(public_path('storage/' . $partner->photo))->fit(100,100);
-        $photo->save();
+        $photo=$req->file('photo');
+        if($photo){
+            $partner->photo=$req->file('photo')->store('uploads', 'public');
+            $photo = Image::make(public_path('storage/' . $partner->photo))->fit(100,100);
+            $photo->save();
+        }
+        if(!$name){
+            return ["Result"=>"Name cannot be empty"];
+        }
         $result=$partner->save();
         if($result)
         {
@@ -37,12 +44,19 @@ class PartnerController extends Controller
             return ["Result"=>"Data couldn't saved to database"];
         }
     }
-    function update(Request $req,$id)
-    {
+    function update(Request $req,$id){
         $partner = Partner::find($id);
-        $partner->photo=$req->file('photo')->store('uploads', 'public');
-        $photo = Image::make(public_path('storage/' . $partner->photo))->fit(100,100);
-        $photo->save();
+        $name=$req->name;
+        $partner->name=$req->name;
+        $photo=$req->file('photo');
+        if($photo){
+            $partner->photo=$req->file('photo')->store('uploads', 'public');
+            $photo = Image::make(public_path('storage/' . $partner->photo))->fit(100,100);
+            $photo->save();
+        }
+        if(!$name){
+            return ["Result"=>"Name cannot be empty"];
+        }
         $result=$partner->save();
         if($result)
         {

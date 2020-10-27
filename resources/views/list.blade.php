@@ -1,22 +1,37 @@
-<h1>Partners List</h1>
+@extends('layout')
+<div class="container" style="padding-top: 50px; padding-bottom: 100px; text-align:center;">
+    <h1>Partners List</h1>
 
-<table border="1">
-    <tr>
-        <td>ID</td>
-        <td>NAME</td>
-    </tr>
-    @foreach($partners as $partner)
-    <tr>
-    <td>{{$partner['id']}}</td>
-    <td>{{$partner['name']}}</td>
-    </tr>
-    @endforeach
-</table>
+    <table class="table">
+        <thead>
+            <tr>
+                <td scope="col-4-lg">ID</td>
+                <td scope="col-4-lg">Photo</td>
+                <td scope="col-4-lg">NAME</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($partners as $partner)
+            <tr>
+                <th scope="row"><a href="/api/partners/{{$partner['id']}}">{{$partner['id']}}</a></th>
+                <td><img src="{{ asset('storage/' . $partner['photo']) }}" alt="no photo"></td>
+                <td>{{$partner['name']}}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <br>
+    <h1>To add new Partner</h1>
+    <form action="partners" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <input class="form-control" type="text" name="name" placeholder="Name" >
+        </div>
+        <div class="form-group">
+            <input class="form-control-file" type="file" name="photo" >
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 
-{{-- <span>{{$partners->links()}}</span>
-
-<style>
-    .w-5{
-      display: none; 
-    }
-</style> --}}

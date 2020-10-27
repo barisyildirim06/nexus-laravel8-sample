@@ -33,3 +33,5 @@ Route::delete("partners/{id}", [PartnerController::class, 'deletepartner']);
 
 
 
+
+
