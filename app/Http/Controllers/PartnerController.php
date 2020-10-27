@@ -33,7 +33,6 @@ class PartnerController extends Controller
         ]);
         $partner = new Partner;
         $name=$req->name;
-
         $partner->name=$req->name;
         $photo=$req->file('photo');
         if($photo){
@@ -41,20 +40,9 @@ class PartnerController extends Controller
             $photo = Image::make(public_path('storage/' . $partner->photo))->fit(100,100);
             $photo->save();
         }
-        if(!$name){
-            return ["Result"=>"Name cannot be empty"];
-        }
-        else{
-            $result=$partner->save();
-        }
-        if($result)
-        {
-            return ["Result"=>"Data is saved to database"];
-        }
-        else
-        {
-            return ["Result"=>"Data couldn't saved to database"];
-        }
+        $result=$partner->save();
+        if($result){return ["Result"=>"Data is saved to database"];}
+        else{return ["Result"=>"Data couldn't saved to database"];}
     }
     function update(Request $req,$id){
         $req->validate([
@@ -69,18 +57,9 @@ class PartnerController extends Controller
             $photo = Image::make(public_path('storage/' . $partner->photo))->fit(100,100);
             $photo->save();
         }
-        if(!$name){
-            return ["Result"=>"Name cannot be empty"];
-        }
         $result=$partner->save();
-        if($result)
-        {
-            return ["Result"=>"Data is updated to database"];
-        }
-        else
-        {
-            return ["Result"=>"Data couldn't updated to database"];
-        }
+        if($result) {return ["Result"=>"Data is updated to database"];}
+        else {return ["Result"=>"Data couldn't updated to database"];}
     }
     function deletepartner($id)
     {
