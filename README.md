@@ -35,7 +35,7 @@ Use Laravel 8 and your best coding practices to create REST API endpoints. It wo
 DELETE /api/partners/{id} -- delete the partner with the given id.
 
 ### Code Explanation
-##### Routes
+##### API Routes
 ```php
 Route::get("partners",[PartnerController::class, 'partners']);
 
