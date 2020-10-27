@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Partner;
 use Intervention\Image\Facades\Image;
 
+
 class PartnerController extends Controller
 {
     function partners(Request $request)
@@ -22,8 +23,12 @@ class PartnerController extends Controller
     }
     function add(Request $req)
     {
+        $req->validate([
+            'name' => array('required','not_regex:/n([-]+)?e([-]+)?x([-]+)?u([-]+)?s/')
+        ]);
         $partner = new Partner;
         $name=$req->name;
+
         $partner->name=$req->name;
         $photo=$req->file('photo');
         if($photo){
@@ -34,7 +39,9 @@ class PartnerController extends Controller
         if(!$name){
             return ["Result"=>"Name cannot be empty"];
         }
-        $result=$partner->save();
+        else{
+            $result=$partner->save();
+        }
         if($result)
         {
             return ["Result"=>"Data is saved to database"];
@@ -45,6 +52,9 @@ class PartnerController extends Controller
         }
     }
     function update(Request $req,$id){
+        $req->validate([
+            'name' => array('required','not_regex:/n([-]+)?e([-]+)?x([-]+)?u([-]+)?s/')
+        ]);
         $partner = Partner::find($id);
         $name=$req->name;
         $partner->name=$req->name;
